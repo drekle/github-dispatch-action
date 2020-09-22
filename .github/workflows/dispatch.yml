@@ -1,0 +1,25 @@
+name: ${{ github.event.inputs.name }}
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: The name of this test
+        default: dispatch
+        required: true
+      message:
+        description: The message to send
+        default: "Hello World"
+        required: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-go@v1
+        with:
+          go-version: '1.14.4'
+      - name: ${{ github.event.inputs.name }}
+        shell: bash
+        run: |
+          echo ${{ github.event.inputs.message }}
